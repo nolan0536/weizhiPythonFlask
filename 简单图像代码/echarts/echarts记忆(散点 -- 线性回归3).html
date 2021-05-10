@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>散点-线性回归 -- 记忆3</title>
+    <script type="text/javascript" src="static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/ecStat.min.js"></script>
+</head>
+<body>
+<div id="main" style="width:600px;height:600px;"></div>
+<script>
+    var myChart = echarts.init(document.getElementById("main"));
+    var Data = [
+        [10.0, 9.14],
+        [8.0, 8.14],
+        [13.0, 8.74],
+        [9.0, 8.77],
+        [11.0, 9.26],
+        [14.0, 8.10],
+        [6.0, 6.13],
+        [4.0, 3.10],
+        [12.0, 9.13],
+        [7.0, 7.26],
+        [5.0, 4.74]
+    ];
+    var myRegression = ecStat.regression("exponential",Data);  // exponential
+    myRegression.points.sort(function(a,b) {
+        return a[0] - b[0];
+    });
+    var option = {
+        title:{
+            text:"散点 - 线性回归图 <--> 记忆3",
+            subtext:"散点--线性回归图",
+            left:"center",
+            textStyle:{
+                color:"red",
+                fontFamily:"FangSong",
+                fontStyle:"italic",
+                fontWeight:"bold"
+            }
+        },
+        legend:{},
+        tooltip:{
+            trigger:"axis",
+            axisPointer:{
+                type:"cross"
+            }
+        },
+        toolbox:{
+            feature:{
+                dataView:{ show:true },
+                restore:{ show:true },
+                saveAsImage:{ show:true }
+            }
+        },
+        grid:{},
+        xAxis:{
+            type:"value",
+            name:"xxx",
+            axisLine:{
+                lineStyle:{ color:"#ccc" }
+            },
+            splitLine:{
+                lineStyle:{ type:"dashed" }
+            }
+        },
+        yAxis:{
+            name:"yyy",
+            type:"value",
+            splitLine:{
+                lineStyle:{ type:"dashed" }
+            },
+            axisLine:{
+                lineStyle:{ color:"#ccc" }
+            }
+        },
+        series:[
+            {
+                type:"scatter",
+                symbolSize:18,
+                emphasis:{
+                    label:{
+                        show:true,
+                        color:"green",
+                        fontSize:15,
+                        position:"left"
+                    }
+                },
+                data:Data
+            },
+            {
+                type:"line",
+                showSymbol:false,
+                smooth:true,
+                data:myRegression.points,
+                markPoint:{
+                    itemStyle:{
+                        color:"transparent"
+                    },
+                    label:{
+                        color:"#333",
+                        fontSize:16,
+                        position:"left",
+                        formatter:myRegression.expression
+                    },
+                    data:[{
+                        coord:myRegression.points[myRegression.points.length - 1]
+                    }]
+                }
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+</body>
+</html>

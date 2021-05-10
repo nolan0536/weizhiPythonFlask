@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>柱状 -- 记忆3</title>
+    <script type="text/javascript" src="static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+</head>
+<body>
+<div id="main" style="width:600px;height:600px;"></div>
+<script>
+    var myChart = echarts.init(document.getElementById("main"));
+    var option = {
+        title:{
+            text:"柱状图 <--> 记忆3",
+            subtext:"(柱状图)",
+            left:"center"
+        },
+        legend:{ x:"right" },
+        tooltip:{
+            trigger:"axis",
+            axisPointer:{
+                type:"shadow"
+            }
+        },
+        toolbox:{
+            y:"bottom",
+            feature:{
+                magicType:{
+                        type:["bar","line","stack","tiled"]
+                    },
+                    dataView:{ show:true },
+                    restore:{ show:true },
+                    saveAsImage:{ show:true }
+            }
+        },
+        grid:{},
+        xAxis:{
+            name:"xxx",
+            type:"category",
+            axisLabel:{
+                color:"red",
+                interval:0,
+                rotate:270
+            },
+            data:["1月","2月","3月","4月","5月","6月"]
+        },
+        yAxis:{
+            name:"yyy",
+            type:"value",
+            splitLine:{ show:false }
+        },
+        series:[
+            {
+                name:"预计雨量",
+                type:"bar",
+                barGap:0,
+                stack:"01",
+                showBackground:true,
+                backgroundStyle:{
+                    color:"rgba(220,220,220,0.8)"
+                },
+                data:[115,125,135,145,155,165]
+            },
+            {
+                name:"实际雨量",
+                type:"bar",
+                stack:"02",
+                data:[105,115,125,135,145,155]
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>环状 -- 记忆3</title>
+    <script type="text/javascript" src="static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+</head>
+<body>
+<div id="OneMain" style="width:600px;height:600px;"></div>
+<script>
+    var myChart = echarts.init(document.getElementById("OneMain"));
+    var Data = [
+        { name:"AAA",value:1549 },
+        { name:"BBB",value:1679 },
+        { name:"CCC",value:1274 },
+        { name:"DDD",value:1350 },
+        { name:"EEE",value:1477 }
+    ];
+    var option = {
+        backgroundColor:"#fff",
+        title:{
+            text:"环状图 <--> 记忆3",
+            subtext:"(环状图)",
+            left:"center"
+        },
+        legend:{ y:"bottom" },
+        tooltip:{
+            trigger:"item",
+            formatter:"{b} : {c}({d}%)"
+        },
+        toolbox:{
+            feature:{
+                dataView:{ show:true },
+                restore:{ show:true },
+                saveAsImage:{ show:true }
+            }
+        },
+        series:[
+            {
+                type:"pie",
+                radius:["30%","55%"],
+                center:["50%","50%"],
+                clockwise:true,
+                animation:true,
+                label:{
+                    show:false,
+                    position:"center"
+                },
+                emphasis:{
+                    label:{
+                        show:true,
+                        color:"blue",
+                        fontSize:98
+                    }
+                },
+                labelLine:{ show:false },
+                data:Data
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+</body>
+</html>

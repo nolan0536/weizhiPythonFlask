@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>柱状+折线 -- 记忆2</title>
+    <script type="text/javascript" src="static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+</head>
+<body>
+<div id="main" style="width:600px;height:600px;"></div>
+<script>
+    var myChart = echarts.init(document.getElementById("main"));
+    var option = {
+        title:{
+            text:"柱状+折线 <--> 记忆2",
+            subtext:"(柱状+折线图)",
+            top:"90%",
+            left:"center"
+        },
+        legend:{
+            x:"right",
+            y:"top",
+<!--            orient:"interval"-->
+        },
+        tooltip:{
+            trigger:"axis",
+            axisPointer:{ type:"cross" }
+        },
+        toolbox:{
+            y:"bottom",
+            feature:{
+                magicType:{
+                    type:["bar","line","stack","tiled"]
+                },
+                dataView:{ show:true },
+                restore:{ show:true },
+                saveAsImage:{ show:true }
+            }
+        },
+        grid:{ containLabel:true },
+        xAxis:{
+            type:"category",
+            name:"月份",
+            axisPointer:{ type:"shadow" },
+            data:["1月","2月","3月","4月","5月","6月"],
+            axisLabel:{
+                interval:0,
+                color:"red",
+                rotate:0
+            }
+        },
+        yAxis:[
+            {
+                name:"降雨量",
+                type:"value",
+                min:0,
+                max:300,
+                interval:50,
+                axisLabel:{
+                    formatter:"{value}ml"
+                }
+            },{
+                name:"温度",
+                type:"value",
+                min:0,
+                boundaryGap:true,
+                max:36,
+                interval:6,
+                axisLabel:{
+                    formatter:"{value}℃"
+                }
+            }
+        ],
+        series:[
+            {
+                name:"预计降雨量",
+                type:"bar",
+                color:"blue",
+                stack:"01",
+                showBackground:false,
+                backgroundStyle:{ color:"rgba(0,0,0,0.1)" },
+                barGap:0.5,
+                data:[175.6, 182.2, 188.7, 208.8, 200.16, 222.3]
+            },
+            {
+                name:"实际降雨量",
+                type:"bar",
+                color:"orange",
+                stack:"02",
+                showBackground:false,
+                backgroundStyle:{ color:"rgba(0,0,0,0.16)" },
+                data:[ 135.6, 162.2, 152.6, 170.56, 188.4, 233.3]
+            },
+            {
+                name:"平均温度",
+                type:"line",
+                stack:"03",
+<!--                smooth:true,-->
+                yAxisIndex:1,
+<!--                areaStyle:{},-->
+                label:{
+                    normal:{
+                        show:true,
+                        position:"top"
+                    }
+                },
+                data:[5, 16.8, 22.5,25.7,28.26,30.5]
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+</body>
+</html>

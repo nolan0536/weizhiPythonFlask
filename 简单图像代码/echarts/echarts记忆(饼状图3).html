@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>饼状 -- 记忆3</title>
+    <script type="text/javascript" src="static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+</head>
+<body>
+<div id="main" style="width:600px;height:600px;"></div>
+<script>
+    var myChart = echarts.init(document.getElementById("main"));
+    var Data = [
+        {name:"红旗A",value:156},
+        {name:"奔驰C",value:187},
+        {name:"宝马B",value:171},
+        {name:"长安D",value:112},
+        {name:"大众Z",value:136}
+    ];
+    var option = {
+        backgroundColor:"#ccc",
+        title:{
+            text:"柱状图 <--> 记忆3",
+            subtext:"(柱状图)",
+            left:"center",
+            textStyle:{
+                color:"#333",
+                fontFamily:"FangSong",
+                fontStyle:"italic",
+                fontWeight:"bold"
+            }
+        },
+        legend:{ x:"right",y:"center",orient:"vertical" },
+        tooltip:{
+            trigger:"item",
+            formatter:"{b} : {c}({d}%)"
+        },
+        toolbox:{},
+        series:[
+            {
+                type:"pie",
+                radius:"36%",
+                center:["50%","50%"],
+                selectedMode:"single",
+                selectedOffset:15,
+                clockwise:true,
+                animation:true,
+                label:{
+                    color:"#333",  //标签颜色
+                    fontWeight:"bold",  //标签粗细
+                    fontSize:18  //标签大小
+                },
+                data:Data
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+</body>
+</html>

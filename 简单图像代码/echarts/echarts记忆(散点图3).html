@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>散点 -- 记忆3</title>
+    <script type="text/javascript" src="static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+</head>
+<body>
+<div id="main" style="width:600px;height:600px;"></div>
+<script>
+    var myChart = echarts.init(document.getElementById("main"));
+    var Data1 = [
+        [10.0, 8.04],
+        [8.0, 6.95],
+        [13.0, 7.58],
+        [9.0, 8.81],
+        [11.0, 8.33],
+        [14.0, 9.96],
+        [6.0, 7.24],
+        [4.0, 4.26],
+        [12.0, 10.84],
+        [7.0, 4.82],
+        [5.0, 5.68]
+    ];
+    var Data2 = [
+        [1.5,3.7],[2.1,4.1],[1.2,4.8]
+    ];
+    var option = {
+        title:{
+            text:"散点图 <--> 记忆3",
+            subtext:"(散点图)",
+            left:"center",
+            textStyle:{
+                color:"#333",
+                fontWeight:"bold",
+                fontFamily:"FangSong",
+                fontStyle:"italic"
+            }
+        },
+        legend:{ x:"right",data:["Data1","Data2"] },
+        tooltip:{
+
+            trigger:"item",
+            formatter:"{a} : {c}",
+            axisPointer:{
+                type:"cross"
+            }
+        },
+        toolbox:{},
+        grid:{},
+        xAxis:{ scale:true },
+        yAxis:{
+            splitLine:{ show:false },
+            scale:true
+        },
+        series:[
+            {
+                name:"Data1",
+                type:"scatter",
+                symbolSize:18,
+                emphasis:{
+                    label:{
+                        show:true,
+                        position:"left",
+                        color:"blue",
+                        fontSize:18
+                    }
+                },
+                data:Data1
+            },{
+                name:"Data2",
+                type:"effectScatter",
+                symbolSize:15,
+                data:Data2
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+</body>
+</html>

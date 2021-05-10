@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Echarts学习2</title>
+    <!-- 引入echarts,jquery文件 -->
+    <script type="text/javascript" src="static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+</head>
+<body>
+    <!-- 设置图像显示区域 -->
+    <div id="main" style="width:600px;height:600px;"></div>
+    <script type="text/javascript">
+        //初始化echarts对象
+        var myChart = echarts.init(document.getElementById("main"));
+        //指定图表的配置项和数据
+        var option = {
+            // 设置标题
+            title:{
+                text:"种类与数量",
+                left:"center" //设置标题水平位置
+            },
+            // 折线显示信息
+            tooltip:{
+                trigger:"axis",
+                // 设置分层线
+                axisPointer:{
+                    type:"cross",
+                    label:{}
+                }
+            },
+            // 设置图例
+            legend:{
+                x:"left", //设置图例水平位置
+                y:"center", //设置延y轴位置
+                orient:"vertical", //图例垂直
+                data:["种类","个数","售价"]
+            },
+            // 设置保存图表
+            toolbox:{
+                feature:{
+                    saveAsImage:{}
+                }
+            },
+            // 设置边界属性
+            grid:{
+                left:"10%",
+                right:"4%",
+                bottom:"3%",
+                containLabel:true
+            },
+            xAxis:{
+                type:'category',
+                axisLabel:{
+                    interval:0, //间隔
+                    color:"red", //颜色
+                    rotate:40 //倾斜度
+                },
+                data:["Mon","Tue","Wed","THu","Fri","Sat","Sun"],
+                boundaryGap:false //图像从y轴处开始.
+            },
+            yAxis:{
+                type:"value",
+<!--                interval:1,-->
+<!--                min:0,-->
+<!--                max:1000-->
+                splitNumber:10 //设置y值间隔
+            },
+            series:[
+            //对图像中线的设置
+                {
+                name:"个数", //设置线的名称
+                type:"line", //设置线的类型
+                color:"red", //设置线的颜色
+<!--                areaStyle:{}, //设置阴影-->
+<!--                smooth:true, //设置平滑度-->
+                stack:"01", //数据堆叠
+                data:[12,19,26,8,16,91,33] //设置数据
+                },
+                {
+                name:"售价",
+                type:"line",
+                color:"orange",
+<!--                areaStyle:{}, //设置折线下阴影-->
+                stack:"03",
+<!--                smooth:true,-->
+                data:[100,160,91,191,118,56,70]
+                },
+                {
+                 name:"种类",
+                 type:"line",
+                 color:"purple",
+<!--                 areaStyle:{},-->
+                 stack:"总量",
+<!--                 smooth:true,-->
+                 //设置点的标签
+                 label:{
+                    normal:{
+                        show:true,
+                        position:"top"
+                    }
+                 },
+                 data:[820,932,901,934,1290,1330,1320]
+                 }
+                ]
+             };
+        //渲染图表
+        myChart.setOption(option);
+    </script>
+</body>
+</html>

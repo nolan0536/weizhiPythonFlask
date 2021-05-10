@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>雷达 -- 记忆3</title>
+    <script type="text/javascript" src="static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+</head>
+<body>
+<div id="main" style="width:600px;height:600px;"></div>
+<script>
+    var myChart = echarts.init(document.getElementById("main"));
+    var option = {
+        title:{
+            text:"雷达图 <--> 记忆3",
+            subtext:"(雷达图)",
+            left:"center"
+        },
+        legend:{ y:"bottom" },
+        tooltip:{},
+        toolbox:{
+            feature:{
+                dataView:{ show:true },
+                restore:{ show:true },
+                saveAsImage:{ show:true }
+            }
+        },
+        grid:{},
+        radar:{
+<!--            shape:"circle",-->
+            name:{
+                textStyle:{
+                    color:"#333",
+                    backgroundColor:"#ccc",
+                    padding:[5,5]
+                }
+            },
+            indicator:[
+                { name:"AAA",max:1200 },
+                { name:"BBB",max:1100 },
+                { name:"CCC",max:1300 },
+                { name:"DDD",max:1400 },
+                { name:"EEE",max:1600 }
+            ]
+        },
+        series:[
+            {
+                type:"radar",
+                name:"Word VS AGR",
+                data:[
+                    { value:[1100,987,1080,1259,1479],name:"Word" },
+                    { value:[948,1051,1221,1059,1400],name:"AGR" }
+                ]
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+</body>
+</html>

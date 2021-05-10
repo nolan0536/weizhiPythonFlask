@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>词云 -- 记忆3</title>
+    <script type="text/javascript" src="static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/echarts-wordcloud.min.js"></script>
+</head>
+<body>
+<div id="main" style="width:100%;height:680px;"></div>
+<script>
+    var myChart = echarts.init(document.getElementById("main"));
+    var Data = [
+        { name:"AG_电子竞技",value:1341 },
+        { name:"城都_AK",value:1546 },
+        { name:"汉宫PE_One",value:1667 }
+    ];
+    var option = {
+        title:{
+            text:"词云图 <--> 记忆3",
+            subtext:"(词云图)",
+            left:"center"
+        },
+        legend:{},
+        tooltip:{},
+        toolbox:{
+            feature:{
+                dataView:{ show:true },
+                restore:{ show:true },
+                saveAsImage:{ show:true }
+            }
+        },
+        series:[
+            {
+                type:"wordCloud",
+                gridSize:8,
+                sizeRange:[12,60],
+                rotationRange:[-90,90],
+                rotationStep:45,
+                shape:"diamond", //heart-shaped 心形,circle 圆形,diamond 菱形,triangle 三角形
+                textStyle:{
+                    normal:{
+                        fonFamily:"YouYuan",
+                        fontWeight:2,
+                        color:function() {
+                            return "rgb(" + [
+                                Math.round(Math.random()*255),
+                                Math.round(Math.random()*255),
+                                Math.round(Math.random()*255)
+                                ].join(",") + ")";
+                        }
+                    },
+                    emphasis:{
+                        shadowBlur:20,
+                        shadowColor:"rgba(0,0,0,0.8)"
+                    }
+                },
+                data:Data
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+</body>
+</html>

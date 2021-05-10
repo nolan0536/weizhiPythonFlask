@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>折线 -- 记忆3</title>
+    <script type="text/javascript" src="static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+</head>
+<body>
+<div id="main" style="width:600px;height:600px;"></div>
+<script>
+    var myChart = echarts.init(document.getElementById("main"));
+    var option = {
+        title:[
+        {
+            text:"折线图 <--> 记忆3",
+            subtext:"(折线图)",
+            left:"center",
+            textStyle:{
+                color:"red",
+                fontFamily:"FangSong",
+                fontStyle:"italic",
+                fontWeight:"bold"
+            }
+        },{
+            text:"折线 <--> AAA",
+            left:"center",
+            top:"50%"
+        }
+        ],
+        legend:{ y:"bottom" },
+        tooltip:{
+            trigger:"axis",
+            axisPointer:{ type:"cross" }
+        },
+        toolbox:{
+            feature:{
+                dataView:{ show:true },
+                restore:{ show:true },
+                saveAsImage:{ show:true }
+            }
+        },
+        grid:[
+            { bottom:"60%" }, // containLabel:true
+            { top:"60%" }
+        ],
+        xAxis:[
+            {
+                name:"XXX",
+                type:"category",
+                boundaryGap:false,
+                data:["A工资","B工资","C工资","D工资"]
+            },
+            {
+                name:"xxx",
+                type:"category",
+                data:["a工资","b工资","c工资","d工资"],
+                gridIndex:1
+            }
+        ],
+        yAxis:[
+            {
+                    name:"YYY",
+                    type:"value"
+            },
+            {
+                    name:"yyy",
+                    type:"value",
+                    gridIndex:1
+            }
+        ],
+        series:[
+            {
+                name:"部门预计Avg工资",
+                type:"line",
+                color:"purple",
+                stack:"01",
+                smooth:true,
+                areaStyle:{},
+                label:{
+                    normal:{ show:true,position:"top" }
+                },
+                data:[3555,3216,3788,4000]
+            },
+            {
+                name:"部门实际Avg工资",
+                type:"line",
+                stack:"02",
+                label:{
+                    normal:{ show:true,position:"top" }
+                },
+                data:[3600,3200,3650,3900],
+                xAxisIndex:1,
+                yAxisIndex:1
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+</body>
+</html>

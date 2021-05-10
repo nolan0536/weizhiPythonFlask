@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>完整可视化</title>
+    <script type="text/javascript" src="/static/js/echarts.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/echarts-wordcloud.min.js"></script>
+</head>
+<body>
+<div id="mainAA" style="width:100%;height:580px;"></div>
+<div id="mainBB" style="width:100%;height:580px;"></div>
+<div id="mainCC" style="width:100%;height:580px;"></div>
+<div id="mainDD" style="width:100%;height:580px;"></div>
+<div id="mainEE" style="width:100%;height:580px;"></div>
+<div id="mainFF" style="width:100%;height:580px;"></div>
+<script>
+    // 折线图
+    var myChartA = echarts.init(document.getElementById("mainAA"));
+
+    var dataA1 = [{%for r in g_crn%} "{{r.city}}", {%endfor%}];
+    var dataA2 = [{%for r in g_crn%} "{{r.restaurant_numb}}", {%endfor%}];
+
+    var optionA = {
+        title:{
+            text:"六城市餐饮数量",
+            subtext:"(折线图)",
+            left:"center",
+            textStyle:{
+                color:"#f30008",
+                fontFamily:"cursive",
+                fontStyle:"normal",
+                fontWeight:"bold"
+            }
+        },
+        legend:{
+            x:"right",
+            y:"top"
+        },
+        tooltip:{
+            trigger:"axis",
+            axisPointer:{type:"cross"}
+        },
+        toolbox:{
+            dataView:{show:true},
+            restore:{show:true},
+            saveAsImage:{show:true}
+        },
+        xAxis:{
+            name:"城市",
+            type:"category",
+            axisLabel:{
+                color:"#333",
+                interval:0,
+                rotate:6
+            },
+            data:dataA1
+        },
+        yAxis:{
+            name:"餐饮量",
+            type:"value",
+            splitLine:{
+                show:true,
+                lineStyle:{ type:"dashed" }
+            }
+        },
+        series:[
+            {
+                name:"",
+                type:"line",
+                smooth:false,
+                stack:"01",
+                label:{
+                    normal:{
+                        show:true,
+                        color:"black",
+                        position:"top"
+                    }
+                },
+                data:dataA2
+            }
+        ]
+    };
+    myChartA.setOption(optionA);
+
+    // 饼状图
+    var myChartB = echarts.init(document.getElementById("mainBB"));
+
+    var dataB1 = [{%for r in g_rsn%} {value:"{{r.number}}",name:"{{r.scoreInterval}}"}, {%endfor%}];
+    var dataB2 = [{%for r in g_rsn%} "{{r.scoreInterval}}", {%endfor%}];
+
+    var optionB = {
+        title:{
+            text:"餐饮评分区间",
+            subtext:"(饼状图)",
+            left:"center",
+            textStyle:{
+                color:"#f30008",
+                fontFamily:"FangSong",
+                fontStyle:"italic",
+                fontWeight:"bold"
+            }
+        },
+        legend:{
+            x:"center",
+            y:"bottom",
+            data:dataB2
+        },
+        tooltip:{
+            trigger:"item",
+            formatter:"{b} : {c}({d}%)"
+        },
+        series:[
+            {
+                type:"pie",
+                radius:"55%",
+                center:["50%","50%"],
+                data:dataB1
+            }
+        ]
+    };
+    myChartB.setOption(optionB);
+
+    // 柱状图
+    var myChartC = echarts.init(document.getElementById("mainCC"));
+
+    var dataC1 = [{%for r in g_cr[0]%} "{{r.city}}", {%endfor%}];
+    var dataC2 = [{%for r in g_cr[0]%} "{{r.sale_n}}", {%endfor%}];
+    var dataC3 = [{%for r in g_cr[1]%} "{{r.restaurant_n}}", {%endfor%}];
+
+    var optionC = {
+        title:{
+            text:"城市餐饮数与月销量",
+            subtext:"(柱状图)",
+            left:"center",
+            textStyle:{
+                color:"#f30008",
+                fontFamily:"YouYuan",
+                fontStyle:"normal",
+                fontWeight:"normal"
+            }
+        },
+        legend:{
+            y:"bottom",
+            data:["餐饮数","月销量"]
+        },
+        tooltip:{
+            trigger:"axis",
+            axisPointer:{
+                type:"shadow"
+            }
+        },
+        toolbox:{
+            show:true,
+            dataView:{ show:true },
+            restore:{ show:true },
+            saveAsImage:{ show:true }
+        },
+        xAxis:{
+            name:"城市(名)",
+            type:"category",
+            data:dataC1
+        },
+        yAxis:{
+            name:"yyy",
+            type:"value",
+            scale:true
+        },
+        series:[
+            {
+                 name:"餐饮数",
+                 type:"bar",
+                 stack:"01",
+<!--                 barGap:0.3,-->
+                 showBackground:true,
+                 label:{
+                    normal:{
+                        show:true,
+                        color:"white",
+                        position:"inside"
+                    }
+                 },
+                 data:dataC3
+            },
+            {
+                name:"月销量",
+                type:"bar",
+                stack:"02",
+                showBackground:true,
+                label:{
+                    normal:{
+                        show:true,
+                        color:"#ccc",
+                        position:"inside"
+                    }
+                },
+                data:dataC2
+            }
+        ]
+    };
+    myChartC.setOption(optionC);
+
+    // 雷达图
+    var myChartD = echarts.init(document.getElementById("mainDD"));
+    var dataD1 = {{g_rtc | tojson |safe}};
+    var optionD = {
+        title:{
+            text:"五菜系店铺城市分布",
+            subtext:"(雷达图)",
+            left:"center",
+            y:"90%",
+            textStyle:{
+                color:"#f30008",
+                fontFamily:"cursive"
+            }
+        },
+        legend:{ data:["潍坊","聊城","青岛","枣庄","东营"] },
+        tooltip:{ show:true },
+        radar:{
+            shape:"",
+            name:{
+                textStyle:{
+                    color:"#333",
+                    backgroundColor:"#ccc",
+                    padding:[5,5]
+                }
+            },
+            indicator:[
+                {name:"东北菜"},
+                {name:"云贵菜"},
+                {name:"京菜鲁菜"},
+                {name:"川湘菜"},
+                {name:"江浙菜"}
+            ]
+        },
+        series:[
+            {
+                name:"",
+                type:"radar",
+<!--                radius:"50%",-->
+                data:$.parseJSON(dataD1)
+            }
+        ]
+    };
+    myChartD.setOption(optionD);
+
+    // 散点图
+    var myChartE = echarts.init(document.getElementById("mainEE"));
+    var dataE1 = [{%for r in g_csa%} "{{r.Sum_sales}}", {%endfor%}];
+    var dataE2 = [{%for r in g_csa%} "{{r.city}}", {%endfor%}];
+    var optionE = {
+        title:{
+            text:"各城市四月销量分布",
+            subtext:"(散点图)",
+            left:"center",
+<!--            y:"90%",-->
+            textStyle:{
+                color:"#f30008",
+                fontFamily:"FangSong"
+            }
+        },
+        legend:{},
+        tooltip:{
+            trigger:"item",
+            formatter:"{c}"
+        },
+        xAxis:{
+            name:"城市",
+            type:"category",
+            scale:true,
+            data:dataE2,
+            axisLabel:{
+                color:"purple",
+                interval:0,
+                rotate:0
+            }
+        },
+        yAxis:{
+            name:"销量",
+            type:"value",
+            scale:true
+        },
+        series:[
+            {
+                type:"scatter",
+                symbolSize:18,
+                label:{
+                    normal:{
+                        show:false,
+                        color:"blue",
+                        position:"top"
+                    }
+                },
+                data:dataE1
+            }
+        ]
+    };
+    myChartE.setOption(optionE);
+
+    // 词云图
+    var myChartF = echarts.init(document.getElementById("mainFF"));
+    var dataF1 = [{%for r in g_cy%} {value:"{{r.Sum_number}}",name:"{{r.foodtype}}"}, {%endfor%}];
+    var optionF = {
+        title:{
+            text:"山东省food关键词热度",
+            subtext:"(词云图)",
+            left:"center",
+            textStyle:{
+                color:"#f30008",
+                fontFamily:"FangSong"
+            }
+        },
+        legend:{ show:true },
+        tooltip:{ show:true },
+        series:[
+            {
+                type:"wordCloud",
+                gridSize:8,
+                sizeRange:[12,60],
+                rotationRange:[-90,90],
+                rotationStep:45,
+                shape:"",
+                textStyle:{
+                    normal:{
+                        fontFamily:"cursive",
+                        fontWeight:"normal",
+                        color:function() {
+                            return "rgb(" + [
+                                Math.round(Math.random() * 255),
+                                Math.round(Math.random() * 255),
+                                Math.round(Math.random() * 255)
+                            ].join(",") + ")";
+                        }
+                    },
+                    emphasis:{
+                        shadowBlur:15,
+                        shadowColor:"rgb(0,0,0,0.6)"
+                    }
+                },
+                data:dataF1
+            }
+        ]
+    };
+    myChartF.setOption(optionF);
+</script>
+</body>
+</html>

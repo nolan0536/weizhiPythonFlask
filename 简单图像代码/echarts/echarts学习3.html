@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>echarts学习3</title>
+<!-- 引入echarts、jquery文件 -->
+    <script type="text/javascript" src="static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+</head>
+<body>
+<!-- 设置图像显示区域 -->
+<div id="main" style="width:600px;height:600px;"></div>
+<script type="text/javascript">
+    //初始化echarts对象
+    var myChart = echarts.init(document.getElementById("main"));
+    //指定配置项和数据
+    var option = {
+        title:{
+            text:""
+        },
+        //显示折线上的数据
+        tooltip:{
+            trigger:"axis"
+            axisPointer:{
+                type:"cross",
+                label:{}
+            }
+        },
+        legend:{
+            data:[]
+        },
+        //设置边界属性
+        grid:{
+            left:"", //图像距左边界距离
+            right"", //图像距右边界距离
+            bottom:"", //图像距底部距离
+            containLabel:true //是否为标签距边界距离
+        },
+        //图像保存
+        toolbox:{
+            feature:{
+                saveAsImage:{}
+            }
+        }
+        xAxis:{
+            type:"category",
+            boundaryGap:false,
+            data:[]
+        },
+        yAxis:{
+            type:"value"
+        },
+        series:{
+            {
+             name:"",
+             type:"",
+             color:"",
+             smooth:true,
+             areaStyle:{},
+             stack:"总量", //数据堆叠
+             label:{
+                normal:{
+                    show:true,
+                    position:"top"
+                }
+             }
+             data:[]
+            }
+        }
+    };
+    //渲染图表
+    myChart.setOption(option);
+</script>
+</body>
+</html>
